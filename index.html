@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>article</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h1 id="the-best-bit-alice-can-send">The Best Bit Alice Can Send</h1>
+<p><em>Why the most informative message isn’t the winning one.</em></p>
+<p><em>Alice and Bob play a collaborative game of SeaBattle. They both
+have a part of the information needed to win, and Alice can send Bob
+just one bit. Shannon’s information theory tells us how much information
+is carried by that signal, but (as it turns out) this is not the
+parameter to optimize for a winning strategy.</em></p>
+<p>Alice and Bob have to work together to beat an enemy fleet. Alice can
+see the whole field — a grid, each cell either holding an enemy ship or
+empty water. Bob operates the gun. He can see to which cell it points
+but cannot control it. Bob must decide — shoot, or hold fire. Alice can
+help him, yet her signal line carries exactly one bit: a single ‘yes’ or
+‘no’, sent before she knows where the gun will point, received by a Bob
+who cannot see the ships.</p>
+<p>What is their best strategy? And, since a clever enemy will study how
+they play, what strategy cannot be exploited, even by an adversary who
+knows it in full?</p>
+<figure>
+<img src="Figure_1-1.JPG"
+alt="A naval battle grid with ships hidden in some cells. On one side Alice overlooking the full grid; on the other Bob at a gun aimed at a single highlighted cell. A single line between them carries the message “1 bit”." />
+<figcaption aria-hidden="true">A naval battle grid with ships hidden in
+some cells. On one side Alice overlooking the full grid; on the other
+Bob at a gun aimed at a single highlighted cell. A single line between
+them carries the message “1 bit”.</figcaption>
+</figure>
+<blockquote>
+<p><strong>Figure 1:</strong> <em>The game: Alice sees the whole
+battlefield, Bob operates the gun, and neither controls where it points.
+One bit connects them. Image by author.</em></p>
+</blockquote>
+<p>In this post, we will discuss this game and follow it all the way to
+its provably best strategy. Stripped of the ships, it is known as a
+‘random access code’ [1]: Bob has to guess the value at one index of a
+string that only Alice knows. Alice may encode her string into a single
+bit, but she does not know which index Bob will be asked to guess. It is
+tempting to think Alice should use her bit to convey as much information
+as possible.</p>
+<p>But, as we will see, the optimal strategy sends <em>less</em>
+information than it could.</p>
+<figure>
+<img src="Figure_2-1.JPG"
+alt="A battle grid with ships in some cells, read in a fixed order. Below: the same board written as a bitstring — ship is 1, sea is 0. An arrow connects the board to the string. On the right, the gun points at one cell, marking Bob’s index into the string." />
+<figcaption aria-hidden="true">A battle grid with ships in some cells,
+read in a fixed order. Below: the same board written as a bitstring —
+ship is 1, sea is 0. An arrow connects the board to the string. On the
+right, the gun points at one cell, marking Bob’s index into the
+string.</figcaption>
+</figure>
+<blockquote>
+<p><strong>Figure 2:</strong> <em>Stripped of the ships: a board read in
+a fixed order is a bitstring — ship is 1, sea is 0. The gun’s cell is
+Bob’s index. Image by author.</em></p>
+</blockquote>
+<h3 id="gaming-the-game-master">Gaming the Game Master</h3>
+<p>Let us first make the threat precise. Playing against the worst case
+means imagining a ‘game master’: an adversary who knows their strategy
+in full. Against any <em>deterministic</em> strategy, this game master
+does not just win often; he wins always. If Alice’s encoding and Bob’s
+response are fixed rules, the game master can anticipate every step: he
+picks a board and gun index precisely such that the rule fails.</p>
+<p>So Alice and Bob need to be unpredictable, and they can arrange this
+before the battle: they agree on a shared source of randomness that the
+game master cannot control (cosmic background radiation would do) and
+use it to scramble the game. Alice flips her board cell-by-cell
+according to the shared random pattern before encoding; Bob applies the
+same pattern to undo the flips.</p>
+<p>Whatever board and whatever cell the game master picks, by the time
+it reaches their strategy it looks like a uniformly random one; the game
+master cannot steer towards the worst possible setup for their
+strategy.</p>
+<p>By scrambling, Alice and Bob have turned every input into a random
+input — so the worst the game master can do to them leads to their
+<em>average</em> performance over random boards. Worst case and average
+case have become the same number (this equivalence is known as Yao’s
+principle, and it is how the authors of [1] attack the problem).</p>
+<p>So the question “what is the best strategy against an all-knowing
+adversary?” has become: “what is the best strategy on average?” — and
+averages over random boards can simply be counted.</p>
+<h3 id="the-majority-wins">The Majority Wins</h3>
+<p>With the game master out of the way, let us evaluate what Alice and
+Bob can do. The scrambling has made the game fully symmetric: every
+board is equally likely, and every cell looks like every other cell. So
+it makes no sense for Bob to follow a different strategy per index. The
+best he can do is always follow Alice’s bit — she says ‘shoot’, he
+shoots — and leave the encoding to Alice. For Bob, this approach is
+called the identity strategy.</p>
+<p>From the same perspective, Alice’s move follows. Her bit will be
+applied unchanged to whichever cell the gun lands on, so she should send
+the value that gives Bob the highest chance: the bit value that occurs
+most on her board, the majority. Ambainis, Leung, Mancinska and Ozols
+proved this optimal in 2009 [1]. For an even number of cells, there are
+also boards where the count ties — as many cells with a ship as with
+sea. For these, Alice can flip a coin to generate her communication.</p>
+<p>We will see that these tied boards prove to be crucial. The picture
+below lays out the full partition of the sixteen boards for a grid of 4
+cells, including the six tied boards.</p>
+<figure>
+<img src="Figure_3-1.JPG"
+alt="Sixteen small boards of 4 cells arranged in five rows by ship count: one board with no ships, four with one ship, six with two ships, four with three ships, one with four ships. The bottom two rows are tinted blue and labelled “send: hold”; the top two rows are tinted red and labelled “send: shoot”; the middle row of six boards is grey and labelled “tied — no majority”." />
+<figcaption aria-hidden="true">Sixteen small boards of 4 cells arranged
+in five rows by ship count: one board with no ships, four with one ship,
+six with two ships, four with three ships, one with four ships. The
+bottom two rows are tinted blue and labelled “send: hold”; the top two
+rows are tinted red and labelled “send: shoot”; the middle row of six
+boards is grey and labelled “tied — no majority”.</figcaption>
+</figure>
+<blockquote>
+<p><strong>Figure 3:</strong> <em>Alice’s encoding for <span
+class="math inline"><em>n</em> = 4</span>: all sixteen boards arranged
+by number of ships (1, 4, 6, 4, 1). The bottom rows say ‘hold’, the top
+rows say ‘shoot’ — and the six tied boards in the middle belong to
+neither until a tie-break agreement assigns them. Image by
+author.</em></p>
+</blockquote>
+<p>How well does it do? For 4 cells, there are sixteen boards, each
+equally likely. For the boards with either zero or four ships, Bob will
+always guess right if he follows Alice’s signal. With one or three ships
+(8 boards out of 16), they win in 3 out of 4 games. On the six tied
+boards, the win rate is 50%. Adding everything up the success rate is
+<span
+class="math inline">1/16 ⋅ 1 + 4/16 ⋅ 3/4 + 6/16 ⋅ 1/2 + 4/16 ⋅ 3/4 + 1/16 ⋅ 1 = 11/16</span>
+— modestly, but strictly, better than the <span
+class="math inline">1/2</span> of pure guessing.</p>
+<h3 id="what-do-we-expect-to-find">What Do We Expect to Find?</h3>
+<p>Before we derive the win rate for boards with any (even) number of
+cells, let us write down what intuition predicts:</p>
+<ol type="1">
+<li>We expect that in an optimal strategy Alice should split the
+possible <span class="math inline">2<sup><em>n</em></sup></span> boards
+into two halves, so that her single bit carries the maximum possible
+information according to Shannon;</li>
+<li>We expect that there are ‘good’ and ‘bad’ ways to handle ties, with
+several agreements available (flip a coin, always say ‘shoot’, copy some
+fixed cell); some must surely be better than others;</li>
+<li>We expect that an encoding that gives Bob more information about
+Alice’s board (i.e., the position of the ships) should win more
+often.</li>
+</ol>
+<p>As we will see, all three intuitions will turn out to be wrong.</p>
+<h3 id="the-tied-boards">The Tied Boards</h3>
+<p>For boards with a clear majority, the strategy is settled — but can
+Alice and Bob still optimize the tied cases? They have several
+agreements available, and from an information perspective these are far
+from equal.</p>
+<p>In a tie situation, Alice could copy the content of a fixed cell. On
+tied boards this splits evenly, so overall she sends a ‘shoot’ for
+exactly as many boards as a ‘hold’. This equal split gives Bob the most
+information on Alice’s board overall. As an alternative strategy, she
+could always say ‘shoot’ when tied. Now every board still maps to a
+definite message, but more boards get a ‘shoot’ than a ‘hold’, and an
+unbalanced message carries less information.</p>
+<p>Or, as a third option, she can flip a coin: the tied boards then get
+a ‘shoot’ or ‘hold’ stochastically — and this reduces the information
+Bob receives about Alice’s board even further.</p>
+<p>So the three agreements form a clean ladder, from maximally
+informative down to deliberately noisy. The information measure we use
+is Shannon’s, and it can simply be computed — for a board of 4
+cells:</p>
+<figure>
+<img src="Figure_4-1.JPG"
+alt="A table with three rows and three columns. Column headings: tie-break rule, information Alice reveals about her board, RAC win rate. Row 1: copy a fixed cell — 1.000 bits, win rate 11/16. Row 2: always ‘shoot’ — 0.896 bits, win rate 11/16. Row 3: flip a coin — 0.625 bits, win rate 11/16. The information column falls down the rows while the win-rate column stays at 11/16 throughout." />
+<figcaption aria-hidden="true">A table with three rows and three
+columns. Column headings: tie-break rule, information Alice reveals
+about her board, RAC win rate. Row 1: copy a fixed cell — 1.000 bits,
+win rate 11/16. Row 2: always ‘shoot’ — 0.896 bits, win rate 11/16. Row
+3: flip a coin — 0.625 bits, win rate 11/16. The information column
+falls down the rows while the win-rate column stays at 11/16
+throughout.</figcaption>
+</figure>
+<blockquote>
+<p><strong>Figure 4:</strong> <em>Three tie-break agreements for 4
+cells. Every information measure falls down the ladder; the win rate
+does not move. Image by author.</em></p>
+</blockquote>
+<p>The win-rate is clearly decoupled from the amount of information Bob
+has about Alice’s board — the <code>copy a fixed cell</code> agreement
+even tells Bob 50% more about Alice’s board than the coin flip — and the
+win rate does not move. The intuitions we wrote down above fall through:
+knowledge about Alice’s board is not the same as optimally guessing the
+value at a specific index. Therefore, the equal split is not required,
+the tie-break does not matter, and more information buys not a single
+extra win.</p>
+<p>The reason a tie-break cannot matter is that whatever Alice sends
+matches exactly half the cells. But that only deepens the question: if
+information does not govern the win rate, what does?</p>
+<h3 id="only-the-ties-matter">Only the Ties Matter</h3>
+<p>The answer is first derived by Ambainis, Leung, Mancinska and Ozols
+[1] (although in a slightly different representation).</p>
+<p><span class="math display">$$P_{\text{maj}} = \frac12 +
+\frac12\,P_{\text{tie}},$$</span></p>
+<p>where <span class="math inline"><em>P</em><sub>tie</sub></span> is
+the probability of drawing a tied board. The entire advantage over blind
+guessing is half the tie probability. Nothing else survives.</p>
+<p>To see why, put yourself at Bob’s cell and suppose it holds a ship.
+Bob wins if Alice says ‘shoot’, and whether she does depends mostly on
+the other <span class="math inline"><em>n</em> − 1</span> cells. With
+<span class="math inline"><em>n</em></span> even, there is an odd number
+of other cells, so it cannot balance: the excess is <span
+class="math inline">+1, +3, …</span> or <span
+class="math inline">−1, −3, …</span>. By symmetry, each positive value
+is exactly as likely as its negative twin. Every positive excess is a
+win — Bob’s ship rides a majority that was already there. Every negative
+excess is a loss, except <span class="math inline">−1</span>.</p>
+<p>At <span class="math inline">−1</span>, the other cells are one ship
+short, and Bob’s own ship pulls the whole board up to a tie: Alice flips
+her coin, and half the time, by accident, he still gets the right
+instruction. (A board whose other cells sit at <span
+class="math inline">−1</span> plus his ship is precisely a tied board —
+that is where <span class="math inline"><em>P</em><sub>tie</sub></span>
+enters the formula.)</p>
+<p>If Bob’s cell holds sea instead, the same story runs with the signs
+reversed. So wins and losses cancel exactly, pair by pair, and the only
+thing left standing above one half is the softened loss at <span
+class="math inline">+1</span>: the ties.</p>
+<p>The picture that makes this transparent is a single row of Pascal’s
+triangle (Figure 5). With Bob’s cell fixed, the distribution of the
+other <span class="math inline"><em>n</em> − 1</span> cells is row <span
+class="math inline"><em>n</em> − 1</span>: for <span
+class="math inline"><em>n</em> = 8</span>, the familiar <span
+class="math inline">1, 7, 21, 35, 35, 21, 7, 1</span>.</p>
+<p>Colour it by what Alice sends — she sends a ‘1’ where the board is
+mostly ones (blue, a win for Bob’s ship) and a ‘0’ where it is mostly
+zeros (red, a loss) — and the cancellation is visible: the row is a
+palindrome of even length, mirror pairs annihilate win against loss all
+the way in, and one cell just right of the central axis refuses to be a
+plain loss. That cell is the tie, and it is the entire prize: for <span
+class="math inline"><em>n</em> = 8</span> it has weight <span
+class="math inline">35</span> out of <span
+class="math inline">128</span>, so <span
+class="math inline"><em>P</em><sub>tie</sub> = 35/128</span> and the win
+rate is <span class="math inline">$\frac12 + \frac12 \cdot
+\frac{35}{128} \approx 0.637$</span>.</p>
+<p>(For the smaller <span class="math inline"><em>n</em> = 4</span>
+board, the same count gives <span class="math inline">$P_{\text{tie}} =
+\frac{3}{8}$</span> and the <span class="math inline">11/16</span> we
+saw above.)</p>
+<figure>
+<img src="Figure_5-1.JPG"
+alt="Eight vertical bars arranged as a symmetric histogram, heights 1, 7, 21, 35, 35, 21, 7, 1, labelled by the number of ones from ‘8x 1’ on the left to ‘1x 1’ on the right. The four left bars (mostly-ones boards) are blue; the three right bars (mostly-zeros boards) are red; the fifth bar, the exact tie at ‘4x 1’, is split with a blue top and a red bottom. A legend reads “Right answer = 1, Alice sends a 1: Win” in blue and “Right answer = 1, Alice sends a 0: Loss” in red. An outlined arrow points to the split bar with the note “Tied strings: Alice sends a random ‘0’ or ‘1’.” Below the bars: Win rate P = 1/2 + 1/2 · P_tie." />
+<figcaption aria-hidden="true">Eight vertical bars arranged as a
+symmetric histogram, heights 1, 7, 21, 35, 35, 21, 7, 1, labelled by the
+number of ones from ‘8x 1’ on the left to ‘1x 1’ on the right. The four
+left bars (mostly-ones boards) are blue; the three right bars
+(mostly-zeros boards) are red; the fifth bar, the exact tie at ‘4x 1’,
+is split with a blue top and a red bottom. A legend reads “Right answer
+= 1, Alice sends a 1: Win” in blue and “Right answer = 1, Alice sends a
+0: Loss” in red. An outlined arrow points to the split bar with the note
+“Tied strings: Alice sends a random ‘0’ or ‘1’.” Below the bars: Win
+rate P = 1/2 + 1/2 · P_tie.</figcaption>
+</figure>
+<blockquote>
+<p><strong>Figure 5:</strong> <em>The cancellation, drawn for a board of
+8 cells. The 128 boards that Bob’s cell could complete, grouped by how
+many ones they hold and coloured by what Alice’s majority bit does: blue
+where she sends ‘1’ and Bob’s ship correctly gets a ‘shoot’, red where
+she sends ‘0’ and misses. Each blue bar has an equal red mirror, so wins
+and losses cancel — all except the split tie bar just right of centre,
+where Alice sends a random bit and wins half the time. The blue area
+over the whole is the win rate: <span
+class="math inline">$\frac12$</span> from the balance, plus <span
+class="math inline">$\frac12 \cdot P_{\text{tie}}$</span> from that
+surviving half-bar (here <span
+class="math inline"><em>P</em><sub>tie</sub> = 35/128 ≈ 0.27</span>, so
+the win rate is about <span class="math inline">0.64</span>). Image by
+author.</em></p>
+</blockquote>
+<p>There is an irony here. In [1], the tied strings are introduced as
+the ‘bad’ ones — the boards on which majority does no better than
+guessing. Yet in the final formula they are the only thing standing
+between the optimal strategy and a coin flip. Only for tied boards did
+the cell that Bob is interested in flip the balance for Alice; for any
+other board the communication from Alice is dominated by the <span
+class="math inline"><em>n</em> − 1</span> other cells.</p>
+<h3 id="the-advantage-vanishes">The Advantage Vanishes</h3>
+<figure>
+<img src="Figure_6-1.JPG"
+alt="A tall, narrow bell-shaped histogram of 64 vertical bars, with a dashed bell curve overlaid that traces the bar tops. Bars left of centre (mostly-ships boards, from ‘64x 1’ down to ‘33x 1’) are blue; bars right of centre (mostly-empty boards, ‘31x 1’ down to ‘1x 1’) are red; the single central bar at ‘32x 1’ — the exact tie — is split blue over red and is only a thin sliver compared with the n = 8 case. Brackets label the blue side “String has mostly 1’s — Alice sends a ‘1’” and the red side “String has mostly 0’s — Alice sends a ‘0’”. Annotations note that the number of tied strings scales as √n, the tied probability as 1/√n, and that the win rate P = ½ + ½·P_tie approaches ½ at rate 1/√n." />
+<figcaption aria-hidden="true">A tall, narrow bell-shaped histogram of
+64 vertical bars, with a dashed bell curve overlaid that traces the bar
+tops. Bars left of centre (mostly-ships boards, from ‘64x 1’ down to
+‘33x 1’) are blue; bars right of centre (mostly-empty boards, ‘31x 1’
+down to ‘1x 1’) are red; the single central bar at ‘32x 1’ — the exact
+tie — is split blue over red and is only a thin sliver compared with the
+n = 8 case. Brackets label the blue side “String has mostly 1’s — Alice
+sends a ‘1’” and the red side “String has mostly 0’s — Alice sends a
+‘0’”. Annotations note that the number of tied strings scales as √n, the
+tied probability as 1/√n, and that the win rate P = ½ + ½·P_tie
+approaches ½ at rate 1/√n.</figcaption>
+</figure>
+<blockquote>
+<p><strong>Figure 6:</strong> <em>The same picture as Figure 5 for a
+board of 64 cells. The histogram is now tall and narrow — a bell curve —
+and the tie bar in the middle has shrunk to a sliver. The number of tied
+boards grows only as <span class="math inline">$\sqrt{n}$</span> while
+the total grows as <span class="math inline"><em>n</em></span>, so the
+tied fraction falls as <span class="math inline">$1/\sqrt{n}$</span>.
+This is what drives the win rate down: <span class="math inline">$P =
+\frac12 + \frac12 \cdot P_{\text{tie}}$</span>, and as <span
+class="math inline"><em>n</em></span> grows, <span
+class="math inline"><em>P</em><sub>tie</sub> → 0</span>, so the win rate
+approaches <span class="math inline">$\frac12$</span>. Image by
+author.</em></p>
+</blockquote>
+<p>How fast does the win rate decline if <span
+class="math inline"><em>n</em></span> grows? The Pascal picture already
+tells us. As <span class="math inline"><em>n</em></span> grows, the
+row’s silhouette settles into a bell curve. The total mass of the row is
+fixed, but the bell’s width grows like <span
+class="math inline">$\sqrt{n}$</span>: the same mass spreads over ever
+more columns, so the columns near the centre must shrink like <span
+class="math inline">$1/\sqrt{n}$</span>.</p>
+<p>On a full 8×8 battlefield of sixty-four cells, the edge over blind
+guessing is down to about five percentage points, and it keeps thinning
+as the board grows. So the optimal strategy — provably unbeatable —
+converges to a coin flip.</p>
+<h3 id="knowing-less-winning-the-same">Knowing Less, Winning the
+Same</h3>
+<p>So what is Shannon’s information doing, if not predicting wins? It is
+measuring the right thing for a different game. Information theory
+counts how much Alice’s message says about the board overall; it is
+indifferent to whether it says it about the cell that will matter — and
+in this game, which cell matters is decided after Alice has made her
+decision. Her most informative bit is a parcel, perfectly packed,
+addressed to a question that is not asked.</p>
+<p>There is in fact a precise way to say when Alice’s bit speaks about
+Bob’s cell at all. Condition on the other <span
+class="math inline"><em>n</em> − 1</span> cells: whenever their majority
+is already settled by two or more, her message is fixed regardless of
+Bob’s cell — it carries strictly zero information about it, and Bob wins
+exactly half the time. Only when the others hang at one ship from
+balance is his cell <em>pivotal</em>: it either seals the majority or
+creates the tie.</p>
+<p>The entire advantage hangs on these pivotal boards — the arithmetic
+closes exactly, since the pivotal boards occur with probability <span
+class="math inline">2<em>P</em><sub>tie</sub></span> and pay <span
+class="math inline">3/4</span> where the rest pay <span
+class="math inline">1/2</span>.</p>
+<h3 id="the-recipe">The Recipe</h3>
+<p>So, the full recipe for Alice fits on three lines:</p>
+<ol type="1">
+<li>scramble — use shared randomness to flip the board, so the game
+master cannot derail your deterministic strategy;</li>
+<li>Alice reports the majority of the scrambled board;</li>
+<li>on ties, Alice flips a coin;</li>
+</ol>
+<p>Bob then uses Alice’s bit as his guess for his decision to shoot or
+hold.</p>
+<p>Note how strange the third line is for a provably optimal recipe: an
+instruction left genuinely blank, because every way of filling it wins
+the same. And note the two ingredients of different character — a shared
+<em>resource</em> (the randomness) and a <em>rule</em> (the majority
+strategy). The shared resource is doing the heavy lifting against the
+game master; the majority strategy generates the proven optimal win rate
+against uniform inputs.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>The best bit Alice can send is not the one that carries the most
+information in general; it is the one that survives a question that has
+not yet been asked. Concretely: Alice should send the majority of a
+scrambled board, leading to a win rate exactly half the chance of a tie,
+fading like <span class="math inline">$1/\sqrt{n}$</span> as the
+battlefield grows.</p>
+<p>Along the way we lost three reasonable intuitions, and the deepest
+loss is the first: making her bit as informative as possible is simply
+not what the game rewards, because Alice must commit to what her bit
+<em>means</em> before Bob’s question exists.</p>
+<p>The shared randomness bought Alice and Bob their advantage against
+the game master — could a stronger shared resource buy more? Quantum
+mechanics turns out to provide exactly such a resource. That, however,
+is a story for the next post.</p>
+<p>The simulations and source code are available on <a
+href="https://github.com/robhendrik/QSeaBattle">the QSeaBattle GitHub
+repo</a>.</p>
+<h3 id="references">References</h3>
+<p>[1] A. Ambainis, D. Leung, L. Mancinska, M. Ozols, <em>Quantum Random
+Access Codes with Shared Randomness</em>, arXiv:0810.2937 (2009).</p>
+</body>
+</html>
